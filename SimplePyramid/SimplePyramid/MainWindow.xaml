@@ -1,0 +1,59 @@
+﻿<Window x:Class="SimplePyramid.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        Title="SimplePyramid" Height="400" Width="542">
+    <Grid Margin="0,0,2,3">
+        <!--<Button x:Name="PyramidButton" Click="triangleButtonClick" Margin="168,322,224,0" Content="Pyramid"/>-->
+        <Viewport3D x:Name="MainViewPort" ClipToBounds="True" Margin="0,0,0,55">
+            <Viewport3D.Camera>
+                <PerspectiveCamera
+					FarPlaneDistance="200"
+					LookDirection="-15,-15,-5"
+					UpDirection="1,1,0"
+					NearPlaneDistance="1" 
+					Position="15,15, 5"
+					FieldOfView="75" />
+            </Viewport3D.Camera>
+            <ModelVisual3D x:Name="Light">
+                <ModelVisual3D.Content>
+                    <DirectionalLight 
+						Color="White" 
+						Direction="-2,-3,-1" >
+                    </DirectionalLight>
+                </ModelVisual3D.Content>
+            </ModelVisual3D>
+            <ModelVisual3D x:Name="MyModel">
+                <ModelVisual3D.Transform>
+                    <RotateTransform3D>
+                        <RotateTransform3D.Rotation>
+                            <AxisAngleRotation3D x:Name="rotateX" Axis="3 4 0"/>
+                        </RotateTransform3D.Rotation>
+                    </RotateTransform3D>
+                </ModelVisual3D.Transform>
+            </ModelVisual3D>
+        </Viewport3D>
+        <xctk:ColorPicker x:Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,327,369,10"/>
+        <!--<Button x:Name="Rotate" Content="Rotate" Click="rotateButtonClick"  HorizontalAlignment="Left" Margin="357,339,0,0" VerticalAlignment="Top" Width="75"/>-->
+        <Slider Height="23" HorizontalAlignment="Left" 
+                Margin="12,12,0,0" Name="slider1"
+                VerticalAlignment="Top" Width="160" 
+                Maximum="360"
+                Value="{Binding ElementName=rotateX, Path=Angle}" />
+        <!--<Slider Height="23" HorizontalAlignment="Right" 
+                Margin="0, 125,-140,0" Name="slider2"
+                VerticalAlignment="Top" Width="160" 
+                Maximum="360"
+                Value="{Binding ElementName=rotateY, Path=Angle}" RenderTransformOrigin="0.214,1.739" >
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>-->
+    </Grid>
+</Window>
