@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-        Title="SimplePyramid" Height="400" Width="542">
+        Title="SimplePyramid" Height="500" Width="800">
     <Grid Margin="0,0,2,3">
         <!--<Button x:Name="PyramidButton" Click="triangleButtonClick" Margin="168,322,224,0" Content="Pyramid"/>-->
         <Viewport3D x:Name="MainViewPort" ClipToBounds="True" Margin="0,0,0,55">
@@ -34,7 +34,7 @@
                 </ModelVisual3D.Transform>
             </ModelVisual3D>
         </Viewport3D>
-        <xctk:ColorPicker x:Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,327,369,10"/>
+        <xctk:ColorPicker x:Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,327,369,10" Width="166" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
         <!--<Button x:Name="Rotate" Content="Rotate" Click="rotateButtonClick"  HorizontalAlignment="Left" Margin="357,339,0,0" VerticalAlignment="Top" Width="75"/>-->
         <Slider Height="23" HorizontalAlignment="Left" 
                 Margin="12,12,0,0" Name="slider1"
