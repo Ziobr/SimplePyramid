@@ -4,23 +4,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         Title="SimplePyramid" Height="500" Width="800">
-    <Grid Margin="0,0,2,3">
+    <Grid Margin="0,0,2,3" VerticalAlignment="Bottom">
         <!--<Button x:Name="PyramidButton" Click="triangleButtonClick" Margin="168,322,224,0" Content="Pyramid"/>-->
         <Viewport3D x:Name="MainViewPort" ClipToBounds="True" Margin="0,0,0,55">
             <Viewport3D.Camera>
                 <OrthographicCamera
-					FarPlaneDistance="200"
-					LookDirection="-15,-15,-5"
-					UpDirection="1,1,0"
-					NearPlaneDistance="1" 
-					Position="15,15, 5"
-					Width="75" />
+					FarPlaneDistance="400"
+					LookDirection="0,0,-25"
+					UpDirection="0,1,0"
+					NearPlaneDistance="0.125" 
+					Position="0,0, 25"
+					Width="80" />
             </Viewport3D.Camera>
             <ModelVisual3D x:Name="Light">
                 <ModelVisual3D.Content>
                     <DirectionalLight 
 						Color="White" 
-						Direction="-2,-3,-1" >
+						Direction="-1,0,-1" >
                     </DirectionalLight>
                 </ModelVisual3D.Content>
             </ModelVisual3D>
@@ -28,20 +28,21 @@
                 <ModelVisual3D.Transform>
                     <RotateTransform3D>
                         <RotateTransform3D.Rotation>
-                            <AxisAngleRotation3D x:Name="rotateX" Axis="3 4 0"/>
+                            <AxisAngleRotation3D x:Name="rotateX" Axis="0 4 0"/>
                         </RotateTransform3D.Rotation>
                     </RotateTransform3D>
                 </ModelVisual3D.Transform>
             </ModelVisual3D>
         </Viewport3D>
-        <xctk:ColorPicker x:Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,327,369,10" Width="166" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+        <xctk:ColorPicker x:Name="ClrPcker_Background" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,327,369,1" Width="166" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="0.502,0.847"/>
         <!--<Button x:Name="Rotate" Content="Rotate" Click="rotateButtonClick"  HorizontalAlignment="Left" Margin="357,339,0,0" VerticalAlignment="Top" Width="75"/>-->
         <Slider Height="23" HorizontalAlignment="Left" 
                 Margin="12,12,0,0" Name="slider1"
                 VerticalAlignment="Top" Width="160" 
                 Maximum="360"
                 Value="{Binding ElementName=rotateX, Path=Angle}" />
-        <TextBox HorizontalAlignment="Left" Name="Length" Height="30" Margin="204,427,0,0" TextWrapping="Wrap" Text="Length" VerticalAlignment="Top" Width="120"/>
+        <TextBox HorizontalAlignment="Left" Name="Length" Height="24" Margin="405,0,0,2.4" TextWrapping="Wrap" Text="Length" VerticalAlignment="Bottom" Width="120" RenderTransformOrigin="0.422,-0.233"/>
+        <Label Content="Enter number lesser than 15" HorizontalAlignment="Left" Margin="204,412,0,0" Width="160" Height="30" RenderTransformOrigin="0.366,0.58" VerticalAlignment="Bottom"/>
         <!--<Slider Height="23" HorizontalAlignment="Right" 
                 Margin="0, 125,-140,0" Name="slider2"
                 VerticalAlignment="Top" Width="160" 

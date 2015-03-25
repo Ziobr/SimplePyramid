@@ -75,13 +75,14 @@ namespace SimplePyramid
                 l = Convert.ToInt32(Length.Text);
             }
             Model3DGroup triangle = new Model3DGroup();
+            //int r = l + l;
             Point3D p0 = new Point3D(0, 0, 0);
             Point3D p1 = new Point3D(l, -l, 0);
             Point3D p2 = new Point3D(5, 0, 5);
             Point3D p3 = new Point3D(0, 0, 5);
-            Point3D p4 = new Point3D(0, 0, 0);
-            Point3D p5 = new Point3D(l, 0, 0);
-            Point3D p6 = new Point3D(l, 0, l);
+            Point3D p4 = new Point3D(0, -l, l);
+            Point3D p5 = new Point3D(l, -l, l);
+            Point3D p6 = new Point3D(l, l, l);
 
 
             //            triangle.Children.Add(CreateTriangleModel(p1, p4, p3));
