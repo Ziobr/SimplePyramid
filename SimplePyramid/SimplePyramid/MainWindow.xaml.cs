@@ -33,7 +33,7 @@ namespace SimplePyramid
             //RotateTransform3D myRotateTransform = new RotateTransform3D(ax3d);
             //MyModel.Transform = myRotateTransform;
         }
-        private SolidColorBrush myBrush = new SolidColorBrush(Colors.Black);
+        private SolidColorBrush myBrush = new SolidColorBrush(Colors.Transparent);
         //private ModelVisual3D MyModel { get; set; }
 
         private Model3DGroup CreateTriangleModel(Point3D p0, Point3D p1, Point3D p2)
