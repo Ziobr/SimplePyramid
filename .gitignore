@@ -2,6 +2,7 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+/SimplePyramid/SimplePyramid.v12.suo
 /SimplePyramid/SimplePyramid/bin
 /SimplePyramid/SimplePyramid/obj
 /SimplePyramid/packages
