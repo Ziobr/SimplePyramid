@@ -14,7 +14,7 @@ using System.Windows.Media.Media3D.Converters;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using HelixToolkit.Wpf;
 
 namespace SimplePyramid
 {
@@ -23,37 +23,31 @@ namespace SimplePyramid
     /// </summary>
     public partial class MainWindow : Window
     {
-        //AxisAngleRotation3D ax3d;
-        //private ModelVisual3D MyModel { set; get; }
         public MainWindow()
         {
             InitializeComponent();
             DrawPyramid();
-            //ax3d = new AxisAngleRotation3D(new Vector3D(0, 2, 0), 1);
-            //RotateTransform3D myRotateTransform = new RotateTransform3D(ax3d);
-            //MyModel.Transform = myRotateTransform;
         }
-        private SolidColorBrush myBrush = new SolidColorBrush(Colors.Transparent);
-        //private ModelVisual3D MyModel { get; set; }
+        private Color myColor = Colors.Green;
+
+        private int Length = 10;
 
         private Model3DGroup CreateTriangleModel(Point3D p0, Point3D p1, Point3D p2)
         {
-            MeshGeometry3D mymesh = new MeshGeometry3D();
-            mymesh.Positions.Add(p0);
-            mymesh.Positions.Add(p1);
-            mymesh.Positions.Add(p2);
-            mymesh.TriangleIndices.Add(0);
-            mymesh.TriangleIndices.Add(1);
-            mymesh.TriangleIndices.Add(2);
-            Vector3D Normal = CalculateTraingleNormal(p0, p1, p2);
-            mymesh.Normals.Add(Normal);
-            mymesh.Normals.Add(Normal);
-            mymesh.Normals.Add(Normal);
-            Material Material = new DiffuseMaterial(this.myBrush);
-            GeometryModel3D model = new GeometryModel3D(
-                mymesh, Material);
+            var myMeshBuilder = new MeshBuilder();
+            var edgeMeshBuilder = new MeshBuilder();
+            myMeshBuilder.AddTriangle(p0, p1, p2);
+            edgeMeshBuilder.AddCylinder(p0, p1, 0.3, 100);
+            edgeMeshBuilder.AddCylinder(p1, p2, 0.3, 100);
+            edgeMeshBuilder.AddCylinder(p2, p0, 0.3, 100);
+            var mesh = myMeshBuilder.ToMesh(true);
+            var edgeMesh = edgeMeshBuilder.ToMesh(true);
+            var material = MaterialHelper.CreateMaterial(this.myColor);
+            var edgeMaterial = MaterialHelper.CreateMaterial(this.myColor);
+
             Model3DGroup Group = new Model3DGroup();
-            Group.Children.Add(model);
+            //Group.Children.Add(new GeometryModel3D { Geometry = mesh, Material = material });
+            Group.Children.Add(new GeometryModel3D { Geometry = edgeMesh, Material = edgeMaterial });
             return Group;
         }
         private Vector3D CalculateTraingleNormal(Point3D p0, Point3D p1, Point3D p2)
@@ -66,51 +60,32 @@ namespace SimplePyramid
         }
         private void DrawPyramid()
         {
-            int l;
-            if(Length.Text == " " | Length.Text == "Length")
+            if (LengthBox != null)
             {
-                l = 10;
+                if (LengthBox.Text == "" | LengthBox.Text == "Length") this.Length = 10;
+                else this.Length = Convert.ToInt32(LengthBox.Text);
             }
-            else
-            {
-                l = Convert.ToInt32(Length.Text);
-            }
+            else this.Length = 10;
             Model3DGroup triangle = new Model3DGroup();
-            //int r = l + l;
+
             Point3D p0 = new Point3D(0, 0, 0);
-            Point3D p1 = new Point3D(l, -l, 0);
-            Point3D p2 = new Point3D(5, 0, 5);
-            Point3D p3 = new Point3D(0, 0, 5);
-            Point3D p4 = new Point3D(0, -l, l);
-            Point3D p5 = new Point3D(l, -l, l);
-            Point3D p6 = new Point3D(l, l, l);
-
-
-            //            triangle.Children.Add(CreateTriangleModel(p1, p4, p3));
-            //            triangle.Children.Add(CreateTriangleModel(p1, p4, p6));
-            //            triangle.Children.Add(CreateTriangleModel(p3, p1, p6));
+            Point3D p1 = new Point3D(this.Length, -this.Length, 0);
+            Point3D p2 = new Point3D(this.Length, 0, this.Length);
+            Point3D p3 = new Point3D(0, 0, this.Length);
+            Point3D p4 = new Point3D(0, 0, 0);
+            Point3D p5 = new Point3D(this.Length, 0, 0);
+            Point3D p6 = new Point3D(this.Length, 0, 2 * this.Length);
 
             triangle.Children.Add(CreateTriangleModel(p1, p5, p6));
             triangle.Children.Add(CreateTriangleModel(p1, p4, p5));
             triangle.Children.Add(CreateTriangleModel(p5, p4, p6));
             triangle.Children.Add(CreateTriangleModel(p6, p4, p1));
 
-            //triangle.Children.Add(CreateTriangleModel(p0, p4, p1));
-            //triangle.Children.Add(CreateTriangleModel(p0, p3, p4));
-            //triangle.Children.Add(CreateTriangleModel(p4, p3, p1));
-
 
             this.MainViewPort.InvalidateVisual();
-            //ModelVisual3D myModel = new ModelVisual3D();
-            //this.MainViewPort.Children.Add(MyModel);
             MyModel.Content = triangle;
-            //MyModel = myModel;
         }
 
-        //private void rotateButtonClick(object sender, RoutedEventArgs e)
-        //{
-        //    ax3d.Angle += 1 ;
-        //}
 
         private void ClrPcker_Background_SelectedColorChanged(object sender, RoutedPropertyChangedEventArgs<Color> e)
         {
@@ -119,13 +94,23 @@ namespace SimplePyramid
             myColor.R = ClrPcker_Background.SelectedColor.R;
             myColor.G = ClrPcker_Background.SelectedColor.G;
             myColor.B = ClrPcker_Background.SelectedColor.B;
-            this.myBrush = new SolidColorBrush(myColor);
+            this.myColor = myColor;
             DrawPyramid();
-            //PyramidButton.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
-            //TextBox.Text = "#" + ClrPcker_Background.SelectedColor.R.ToString() + ClrPcker_Background.SelectedColor.G.ToString() + ClrPcker_Background.SelectedColor.B.ToString();
         }
 
+        private void Length_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            try
+            {
+                Convert.ToInt32(LengthBox.Text);
+            }
+            catch
+            {
+                LengthBox.Text = "10";
+                this.Length = 10;
+            }
+            DrawPyramid();
+        }
        
     }
 }
