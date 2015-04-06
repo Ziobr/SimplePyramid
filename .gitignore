@@ -2,7 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/SimplePyramid/packages/Extended.Wpf.Toolkit.2.4
 /SimplePyramid/SimplePyramid/bin
 /SimplePyramid/SimplePyramid/obj
 /SimplePyramid/packages
