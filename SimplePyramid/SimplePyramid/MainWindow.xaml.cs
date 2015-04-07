@@ -10,6 +10,14 @@ namespace SimplePyramid
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
+    /// 
+    public class MyBinding
+    {
+        public double Value { get; set; }
+        public double Scale { get; set; }
+        public double CenterPoint { get; set; }
+    }
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -21,7 +29,19 @@ namespace SimplePyramid
 
         private int Length = 10;
 
+        private MyBinding _TransformBinding;
 
+        public MyBinding TransformBinding
+        {
+            get
+            {
+                return _TransformBinding;
+            }
+            set
+            {
+                _TransformBinding = value;
+            }
+        }
         private Model3DGroup CreateTriangleModel(Point3D p0, Point3D p1, Point3D p2)
         {
             var myMeshBuilder = new MeshBuilder();
@@ -132,6 +152,15 @@ namespace SimplePyramid
         {
             DrawPyramid();
         }
+
+        //private void TransformSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    var Data = new MyBinding();
+        //    Data.Value = Transform.Value;
+        //    Data.Scale = Transform.Value*5;
+        //    Data.CenterPoint = Transform.Value*10;
+        //    TransformBinding = Data;
+        //}
        
     }
 }
