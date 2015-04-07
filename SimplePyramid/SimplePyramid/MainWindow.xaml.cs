@@ -78,10 +78,10 @@ namespace SimplePyramid
             triangle.Children.Add(CreateTriangleModel(p5, p4, p6));
             triangle.Children.Add(CreateTriangleModel(p6, p4, p1));
 
-            triangleEdges.Children.Add(CreateTriangleModel(p1, p5, p6));
-            triangleEdges.Children.Add(CreateTriangleModel(p1, p4, p5));
-            triangleEdges.Children.Add(CreateTriangleModel(p5, p4, p6));
-            triangleEdges.Children.Add(CreateTriangleModel(p6, p4, p1));
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p1, p5, p6));
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p1, p4, p5));
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p5, p4, p6));
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p6, p4, p1));
 
             this.MainViewPort.InvalidateVisual();
 
