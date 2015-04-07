@@ -4,10 +4,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:h="http://helix-toolkit.org/wpf"
-        Title="SimplePyramid" Height="500" Width="800">
-    <Grid Margin="0,0,2,3" VerticalAlignment="Bottom">
+        Title="SimplePyramid" Height="541" Width="800">
+    <Grid Margin="0,0,2,3" VerticalAlignment="Bottom" Height="451">
         <!--<Button x:Name="PyramidButton" Click="triangleButtonClick" Margin="168,322,224,0" Content="Pyramid"/>-->
-        <h:HelixViewport3D x:Name="MainViewPort" ZoomExtentsWhenLoaded="True">
+        <h:HelixViewport3D x:Name="MainViewPort" ZoomExtentsWhenLoaded="True" Margin="0,-104,48,36">
             <h:HelixViewport3D.Children>
                 <h:SunLight/>
                 <h:GridLinesVisual3D/>
@@ -37,15 +37,15 @@
         <xctk:ColorPicker x:Name="ClrPcker_Background" SelectedColor="Green" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,327,369,1" Width="166" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="0.502,0.847"/>
         <!--<Button x:Name="Rotate" Content="Rotate" Click="rotateButtonClick"  HorizontalAlignment="Left" Margin="357,339,0,0" VerticalAlignment="Top" Width="75"/>-->
         <Slider Height="23" HorizontalAlignment="Left" 
-                Margin="12,12,0,0" Name="slider1"
+                Margin="6,-46,0,0" Name="slider1"
                 VerticalAlignment="Top" Width="160" 
                 Maximum="360"
                 Value="{Binding ElementName=rotateX, Path=Angle}" />
-        <TextBox x:Name="LengthBox" HorizontalAlignment="Left" Height="24" Margin="405,0,0,2.4" TextWrapping="Wrap" Text="10" VerticalAlignment="Bottom" Width="120" RenderTransformOrigin="0.422,-0.233" TextChanged="Length_TextChanged"/>
-        <Label Content="Enter number lesser than 15" HorizontalAlignment="Left" Margin="204,412,0,0" Width="160" Height="30" RenderTransformOrigin="0.366,0.58" VerticalAlignment="Bottom"/>
-        <Slider HorizontalAlignment="Left" Margin="333,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="279" Maximum="360"
+        <TextBox x:Name="LengthBox" HorizontalAlignment="Left" Height="24" Margin="293,0,0,3" TextWrapping="Wrap" Text="10" VerticalAlignment="Bottom" Width="120" RenderTransformOrigin="0.422,-0.233" TextChanged="Length_TextChanged"/>
+        <Label Content="Enter number" HorizontalAlignment="Left" Margin="204,0,0,0" Width="89" Height="30" RenderTransformOrigin="0.366,0.58" VerticalAlignment="Bottom"/>
+        <Slider HorizontalAlignment="Left" Margin="238,-45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="160" Maximum="360"
                 Value="{Binding ElementName=rotateY,Path=Angle}"/>
-        <Slider HorizontalAlignment="Right" Margin="0,174,-115,0" Width="261" RenderTransformOrigin="0.496,8.579" Maximum="360"
+        <Slider HorizontalAlignment="Right" Margin="0,-8,-82,0" Width="160" RenderTransformOrigin="0.496,8.579" Maximum="360"
                 Value="{Binding ElementName=rotateZ, Path=Angle}" VerticalAlignment="Top">
             <Slider.RenderTransform>
                 <TransformGroup>
@@ -56,6 +56,7 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
+        <CheckBox Name="EdgesCheckBox" Content="Show Edges" HorizontalAlignment="Left" Margin="498,-45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.456,-0.188" Checked="EdgesCheckBoxChanged" Unchecked="EdgesCheckBoxChanged"/>
 
 
         <!--<Slider Height="23" HorizontalAlignment="Right" 
