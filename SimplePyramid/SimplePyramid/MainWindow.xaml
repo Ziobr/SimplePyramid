@@ -29,6 +29,7 @@
                                     <AxisAngleRotation3D x:Name="rotateZ" Axis="0 0 4"/>
                                 </RotateTransform3D.Rotation>
                             </RotateTransform3D>
+                            <TranslateTransform3D x:Name="myTranslate" OffsetX="1" OffsetY="1" OffsetZ="1"/>
                         </Transform3DGroup>
                     </ModelVisual3D.Transform>
                 </ModelVisual3D>
@@ -53,6 +54,16 @@
                     <SkewTransform/>
                     <RotateTransform Angle="-89.558"/>
                     <TranslateTransform X="143.201" Y="-140.085"/>
+                </TransformGroup>
+            </Slider.RenderTransform>
+        </Slider>
+        <Slider Margin="-73,224,0,0" RenderTransformOrigin="0.496,-5.261" Maximum="100" Value="{Binding ElementName=myTranslate,Path=OffsetX}" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" >
+            <Slider.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-88.999"/>
+                    <TranslateTransform X="-100.602" Y="100.43"/>
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
