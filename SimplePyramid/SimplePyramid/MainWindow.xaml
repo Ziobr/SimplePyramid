@@ -1,13 +1,13 @@
-﻿<Window x:Class="SimplePyramid.MainWindow"
+﻿<Window x:Name="this"
+        x:Class="SimplePyramid.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:h="http://helix-toolkit.org/wpf"
-        Title="SimplePyramid" Height="500" Width="800">
-    <Grid Margin="0,0,2,3" VerticalAlignment="Bottom">
-        <!--<Button x:Name="PyramidButton" Click="triangleButtonClick" Margin="168,322,224,0" Content="Pyramid"/>-->
-        <h:HelixViewport3D x:Name="MainViewPort" ZoomExtentsWhenLoaded="True">
+        Title="SimplePyramid" Height="541" Width="800">
+    <Grid Margin="0,0,2,3" VerticalAlignment="Bottom" Height="451">
+        <h:HelixViewport3D x:Name="MainViewPort" ZoomExtentsWhenLoaded="True" Margin="0,0,48,36">
             <h:HelixViewport3D.Children>
                 <h:SunLight/>
                 <h:GridLinesVisual3D/>
@@ -29,24 +29,30 @@
                                     <AxisAngleRotation3D x:Name="rotateZ" Axis="0 0 4"/>
                                 </RotateTransform3D.Rotation>
                             </RotateTransform3D>
-                            <TranslateTransform3D x:Name="myTranslate" OffsetX="1" OffsetY="1" OffsetZ="1"/>
+                            <ScaleTransform3D x:Name="transform"
+                                ScaleX="{Binding ElementName=this, Path=TransformBinding.Scale}"
+                                ScaleY="{Binding ElementName=this, Path=TransformBinding.Scale}"
+                                ScaleZ="{Binding ElementName=this, Path=TransformBinding.Scale}"
+                                CenterX="{Binding ElementName=this, Path=TransformBinding.CenterPoint}"
+                                CenterY="{Binding ElementName=this, Path=TransformBinding.CenterPoint}"
+                                CenterZ="{Binding ElementName=this, Path=TransformBinding.CenterPoint}">
+                            </ScaleTransform3D>
                         </Transform3DGroup>
                     </ModelVisual3D.Transform>
                 </ModelVisual3D>
             </h:HelixViewport3D.Children>
         </h:HelixViewport3D>
         <xctk:ColorPicker x:Name="ClrPcker_Background" SelectedColor="Green" SelectedColorChanged="ClrPcker_Background_SelectedColorChanged" Margin="0,327,369,1" Width="166" Height="30" HorizontalAlignment="Left" VerticalAlignment="Bottom" RenderTransformOrigin="0.502,0.847"/>
-        <!--<Button x:Name="Rotate" Content="Rotate" Click="rotateButtonClick"  HorizontalAlignment="Left" Margin="357,339,0,0" VerticalAlignment="Top" Width="75"/>-->
-        <Slider Height="23" HorizontalAlignment="Left" 
-                Margin="12,12,0,0" Name="slider1"
+        <Slider x:Name="RotateX" Height="23" HorizontalAlignment="Left" 
+                Margin="6,-46,0,0" 
                 VerticalAlignment="Top" Width="160" 
                 Maximum="360"
                 Value="{Binding ElementName=rotateX, Path=Angle}" />
-        <TextBox x:Name="LengthBox" HorizontalAlignment="Left" Height="24" Margin="405,0,0,2.4" TextWrapping="Wrap" Text="10" VerticalAlignment="Bottom" Width="120" RenderTransformOrigin="0.422,-0.233" TextChanged="Length_TextChanged"/>
-        <Label Content="Enter number lesser than 15" HorizontalAlignment="Left" Margin="204,412,0,0" Width="160" Height="30" RenderTransformOrigin="0.366,0.58" VerticalAlignment="Bottom"/>
-        <Slider HorizontalAlignment="Left" Margin="333,11,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="279" Maximum="360"
+        <TextBox x:Name="LengthBox" HorizontalAlignment="Left" Height="24" Margin="293,0,0,3" TextWrapping="Wrap" Text="10" VerticalAlignment="Bottom" Width="120" RenderTransformOrigin="0.422,-0.233" TextChanged="Length_TextChanged"/>
+        <Label Content="Enter number" HorizontalAlignment="Left" Margin="204,0,0,0" Width="89" Height="30" RenderTransformOrigin="0.366,0.58" VerticalAlignment="Bottom"/>
+        <Slider x:Name="RotateY" HorizontalAlignment="Left" Margin="238,-45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="160" Maximum="360"
                 Value="{Binding ElementName=rotateY,Path=Angle}"/>
-        <Slider HorizontalAlignment="Right" Margin="0,174,-115,0" Width="261" RenderTransformOrigin="0.496,8.579" Maximum="360"
+        <Slider x:Name="RotateZ" HorizontalAlignment="Right" Margin="0,300,23,0" Width="160" Maximum="360"
                 Value="{Binding ElementName=rotateZ, Path=Angle}" VerticalAlignment="Top">
             <Slider.RenderTransform>
                 <TransformGroup>
@@ -57,23 +63,14 @@
                 </TransformGroup>
             </Slider.RenderTransform>
         </Slider>
-        <Slider Margin="-73,224,0,0" RenderTransformOrigin="0.496,-5.261" Maximum="100" Value="{Binding ElementName=myTranslate,Path=OffsetX}" Width="200" VerticalAlignment="Top" HorizontalAlignment="Left" >
-            <Slider.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-88.999"/>
-                    <TranslateTransform X="-100.602" Y="100.43"/>
-                </TransformGroup>
-            </Slider.RenderTransform>
-        </Slider>
-
-
+        <CheckBox x:Name="EdgesCheckBox" Content="Show Edges" HorizontalAlignment="Left" Margin="498,-45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.456,-0.188" Checked="EdgesCheckBoxChanged" Unchecked="EdgesCheckBoxChanged"/>
         <!--<Slider Height="23" HorizontalAlignment="Right" 
-                Margin="0, 125,-140,0" Name="slider2"
-                VerticalAlignment="Top" Width="160" 
-                Maximum="360"
-                Value="{Binding ElementName=rotateY, Path=Angle}" RenderTransformOrigin="0.214,1.739" >
+                Margin="0,320,-120,0" x:Name="Transform"
+                VerticalAlignment="Top" Width="160"
+                Minimum="1"
+                Maximum="10"
+                Value="{Binding ElementName=this, Path=TransformBinding.Value}"
+                ValueChanged ="TransformSliderChanged">
             <Slider.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

@@ -10,6 +10,14 @@ namespace SimplePyramid
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
+    /// 
+    public class MyBinding
+    {
+        public double Value { get; set; }
+        public double Scale { get; set; }
+        public double CenterPoint { get; set; }
+    }
+
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -21,24 +29,43 @@ namespace SimplePyramid
 
         private int Length = 10;
 
+        private MyBinding _TransformBinding;
+
+        public MyBinding TransformBinding
+        {
+            get
+            {
+                return _TransformBinding;
+            }
+            set
+            {
+                _TransformBinding = value;
+            }
+        }
         private Model3DGroup CreateTriangleModel(Point3D p0, Point3D p1, Point3D p2)
         {
             var myMeshBuilder = new MeshBuilder();
-            var edgeMeshBuilder = new MeshBuilder();
             myMeshBuilder.AddTriangle(p0, p1, p2);
+            var mesh = myMeshBuilder.ToMesh(true);
+            var material = MaterialHelper.CreateMaterial(this.myColor);
+            Model3DGroup Group = new Model3DGroup();
+            Group.Children.Add(new GeometryModel3D { Geometry = mesh, Material = material });
+            return Group;
+        }
+
+        private Model3DGroup CreateTriangleEdgesModel(Point3D p0, Point3D p1, Point3D p2)
+        {
+            var edgeMeshBuilder = new MeshBuilder();
             edgeMeshBuilder.AddCylinder(p0, p1, 0.3, 100);
             edgeMeshBuilder.AddCylinder(p1, p2, 0.3, 100);
             edgeMeshBuilder.AddCylinder(p2, p0, 0.3, 100);
-            var mesh = myMeshBuilder.ToMesh(true);
             var edgeMesh = edgeMeshBuilder.ToMesh(true);
-            var material = MaterialHelper.CreateMaterial(this.myColor);
             var edgeMaterial = MaterialHelper.CreateMaterial(this.myColor);
-
             Model3DGroup Group = new Model3DGroup();
-            //Group.Children.Add(new GeometryModel3D { Geometry = mesh, Material = material });
             Group.Children.Add(new GeometryModel3D { Geometry = edgeMesh, Material = edgeMaterial });
             return Group;
         }
+
         private Vector3D CalculateTraingleNormal(Point3D p0, Point3D p1, Point3D p2)
         {
             Vector3D v0 = new Vector3D(
@@ -56,6 +83,7 @@ namespace SimplePyramid
             }
             else this.Length = 10;
             Model3DGroup triangle = new Model3DGroup();
+            Model3DGroup triangleEdges = new Model3DGroup();
 
             Point3D p0 = new Point3D(0, 0, 0);
             Point3D p1 = new Point3D(this.Length, -this.Length, 0);
@@ -70,9 +98,28 @@ namespace SimplePyramid
             triangle.Children.Add(CreateTriangleModel(p5, p4, p6));
             triangle.Children.Add(CreateTriangleModel(p6, p4, p1));
 
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p1, p5, p6));
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p1, p4, p5));
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p5, p4, p6));
+            triangleEdges.Children.Add(CreateTriangleEdgesModel(p6, p4, p1));
 
             this.MainViewPort.InvalidateVisual();
-            MyModel.Content = triangle;
+
+            if (EdgesCheckBox != null)
+            {
+                if ((bool)EdgesCheckBox.IsChecked)
+                {
+                    MyModel.Content = triangleEdges;
+                }
+                else
+                {
+                    MyModel.Content = triangle;
+                }
+            }
+            else
+            {
+                MyModel.Content = triangle;
+            }
         }
 
 
@@ -100,6 +147,20 @@ namespace SimplePyramid
             }
             DrawPyramid();
         }
+
+        private void EdgesCheckBoxChanged(object sender, RoutedEventArgs e)
+        {
+            DrawPyramid();
+        }
+
+        //private void TransformSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        //{
+        //    var Data = new MyBinding();
+        //    Data.Value = Transform.Value;
+        //    Data.Scale = Transform.Value*5;
+        //    Data.CenterPoint = Transform.Value*10;
+        //    TransformBinding = Data;
+        //}
        
     }
 }
