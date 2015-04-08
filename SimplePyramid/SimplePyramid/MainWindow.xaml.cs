@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Media3D;
 using HelixToolkit.Wpf;
+using System.ComponentModel;
 
 namespace SimplePyramid
 {
@@ -13,18 +14,33 @@ namespace SimplePyramid
     /// 
     public class MyBinding
     {
+
         public double Value { get; set; }
         public double Scale { get; set; }
         public double CenterPoint { get; set; }
     }
 
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window , INotifyPropertyChanged
     {
         public MainWindow()
         {
+            TransformBinding = new MyBinding();
+            TransformBinding.Scale = 1;
+            TransformBinding.CenterPoint = -5;
             InitializeComponent();
             DrawPyramid();
         }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void NotifyPropertyChanged(String propertyName = "")
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
         private Color myColor = Colors.Green;
 
         private int Length = 10;
@@ -153,14 +169,15 @@ namespace SimplePyramid
             DrawPyramid();
         }
 
-        //private void TransformSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        //{
-        //    var Data = new MyBinding();
-        //    Data.Value = Transform.Value;
-        //    Data.Scale = Transform.Value*5;
-        //    Data.CenterPoint = Transform.Value*10;
-        //    TransformBinding = Data;
-        //}
+        private void TransformSliderChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            var Data = new MyBinding();
+            Data.Value = Transform.Value;
+            Data.Scale = 1+Transform.Value;
+            Data.CenterPoint = Transform.Value*10;
+            TransformBinding = Data;
+            NotifyPropertyChanged("TransformBinding");
+        }
        
     }
 }

@@ -29,14 +29,16 @@
                                     <AxisAngleRotation3D x:Name="rotateZ" Axis="0 0 4"/>
                                 </RotateTransform3D.Rotation>
                             </RotateTransform3D>
-                            <ScaleTransform3D x:Name="transform"
-                                ScaleX="{Binding ElementName=this, Path=TransformBinding.Scale}"
-                                ScaleY="{Binding ElementName=this, Path=TransformBinding.Scale}"
-                                ScaleZ="{Binding ElementName=this, Path=TransformBinding.Scale}"
-                                CenterX="{Binding ElementName=this, Path=TransformBinding.CenterPoint}"
-                                CenterY="{Binding ElementName=this, Path=TransformBinding.CenterPoint}"
-                                CenterZ="{Binding ElementName=this, Path=TransformBinding.CenterPoint}">
-                            </ScaleTransform3D>
+                            <TranslateTransform3D x:Name="translate" 
+                                                  OffsetX="{Binding ElementName=this, Path=TransformBinding.CenterPoint, UpdateSourceTrigger=PropertyChanged}"
+                                                  OffsetY="{Binding ElementName=this, Path=TransformBinding.CenterPoint, UpdateSourceTrigger=PropertyChanged}"
+                                                  OffsetZ="{Binding ElementName=this, Path=TransformBinding.CenterPoint, UpdateSourceTrigger=PropertyChanged}">
+                            </TranslateTransform3D>
+                            <!--<ScaleTransform3D x:Name="transform"
+                                CenterX="{Binding ElementName=this, Path=TransformBinding.CenterPoint, UpdateSourceTrigger=PropertyChanged}"
+                                CenterY="{Binding ElementName=this, Path=TransformBinding.CenterPoint, UpdateSourceTrigger=PropertyChanged}"
+                                CenterZ="{Binding ElementName=this, Path=TransformBinding.CenterPoint, UpdateSourceTrigger=PropertyChanged}">
+                            </ScaleTransform3D>-->
                         </Transform3DGroup>
                     </ModelVisual3D.Transform>
                 </ModelVisual3D>
@@ -64,11 +66,10 @@
             </Slider.RenderTransform>
         </Slider>
         <CheckBox x:Name="EdgesCheckBox" Content="Show Edges" HorizontalAlignment="Left" Margin="498,-45,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.456,-0.188" Checked="EdgesCheckBoxChanged" Unchecked="EdgesCheckBoxChanged"/>
-        <!--<Slider Height="23" HorizontalAlignment="Right" 
+        <Slider Height="23" HorizontalAlignment="Right" 
                 Margin="0,320,-120,0" x:Name="Transform"
                 VerticalAlignment="Top" Width="160"
-                Minimum="1"
-                Maximum="10"
+                Maximum="25"
                 Value="{Binding ElementName=this, Path=TransformBinding.Value}"
                 ValueChanged ="TransformSliderChanged">
             <Slider.RenderTransform>
@@ -79,6 +80,6 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Slider.RenderTransform>
-        </Slider>-->
+        </Slider>
     </Grid>
 </Window>
