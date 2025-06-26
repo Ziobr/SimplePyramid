@@ -1,2 +1,2 @@
 # SimplePyramid
-Simple 3D pyramid written on C#
+Simple 3D pyramid written in C#
